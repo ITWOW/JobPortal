@@ -57,31 +57,7 @@ namespace JobPortal.Controllers
             return View(model);
         }
 
-        #region Other Ways to bind DDL
-        /* //to bind countries from code behind DB
-        List<SelectListItem> cList = new List<SelectListItem>()
-        {
-            new SelectListItem() { Text = "INDIA", Value = "INDIA", Selected = false },
-            new SelectListItem() { Text = "USA", Value = "USA", Selected = false },
-            new SelectListItem() { Text = "UK", Value = "UK", Selected = false }
-        };
-       model.CountryList=cList;
-       // bind Clist
-
-
-       //to bind skils from code behind enum
-        var myskill = new List<ConvertEnum>();
-       foreach (MySkillsEnum lang in Enum.GetValues(typeof(MySkillsEnum)))
-       {
-           myskill.Add(new ConvertEnum { Value = (int)lang, Text = lang.ToString() });
-       }
-       ViewBag.MySkillEnum = myskill;
-
-
-       */
-
-        #endregion
-
+        
         public JsonResult JSONDataActionmethod() 
         {
             return Json(_operations.GetCountries(), JsonRequestBehavior.AllowGet);
@@ -209,6 +185,32 @@ namespace JobPortal.Controllers
             bool.TryParse(, out result);*/
         }
 
-        
+
+        #region Other Ways to bind DDL
+        /* //to bind countries from code behind DB
+        List<SelectListItem> cList = new List<SelectListItem>()
+        {
+            new SelectListItem() { Text = "INDIA", Value = "INDIA", Selected = false },
+            new SelectListItem() { Text = "USA", Value = "USA", Selected = false },
+            new SelectListItem() { Text = "UK", Value = "UK", Selected = false }
+        };
+       model.CountryList=cList;
+       // bind Clist
+
+
+       //to bind skils from code behind enum
+        var myskill = new List<ConvertEnum>();
+       foreach (MySkillsEnum lang in Enum.GetValues(typeof(MySkillsEnum)))
+       {
+           myskill.Add(new ConvertEnum { Value = (int)lang, Text = lang.ToString() });
+       }
+       ViewBag.MySkillEnum = myskill;
+
+
+       */
+
+        #endregion
+
+
     }
 }
