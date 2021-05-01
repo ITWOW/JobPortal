@@ -1,0 +1,157 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="JobModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Countries">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="JobSeeker">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="GENDER" Type="bit" />
+          <Property Name="Address" Type="nvarchar" MaxLength="50" />
+          <Property Name="Mobile" Type="nvarchar" MaxLength="13" />
+          <Property Name="resume" Type="varchar" MaxLength="50" />
+          <Property Name="Skills" Type="nvarchar" MaxLength="50" />
+          <Property Name="Country" Type="int" />
+          <Property Name="DOB" Type="date" />
+          <Property Name="IsJava" Type="bit" />
+          <Property Name="IsDotnet" Type="bit" />
+          <Property Name="IsSAP" Type="bit" />
+        </EntityType>
+        <Association Name="FK__JobSeeker__Count__6E01572D">
+          <End Role="Countries" Type="Self.Countries" Multiplicity="0..1" />
+          <End Role="JobSeeker" Type="Self.JobSeeker" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Countries">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="JobSeeker">
+              <PropertyRef Name="Country" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="JobModelStoreContainer">
+          <EntitySet Name="Countries" EntityType="Self.Countries" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="JobSeeker" EntityType="Self.JobSeeker" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__JobSeeker__Count__6E01572D" Association="Self.FK__JobSeeker__Count__6E01572D">
+            <End Role="Countries" EntitySet="Countries" />
+            <End Role="JobSeeker" EntitySet="JobSeeker" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="JobModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="JobDBContext" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Countries" EntityType="JobModel.Country" />
+          <EntitySet Name="JobSeekers" EntityType="JobModel.JobSeeker" />
+          <AssociationSet Name="FK__JobSeeker__Count__6E01572D" Association="JobModel.FK__JobSeeker__Count__6E01572D">
+            <End Role="Country" EntitySet="Countries" />
+            <End Role="JobSeeker" EntitySet="JobSeekers" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Country">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="JobSeekers" Relationship="JobModel.FK__JobSeeker__Count__6E01572D" FromRole="Country" ToRole="JobSeeker" />
+        </EntityType>
+        <EntityType Name="JobSeeker">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="GENDER" Type="Boolean" />
+          <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Mobile" Type="String" MaxLength="13" FixedLength="false" Unicode="true" />
+          <Property Name="resume" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Skills" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Country" Type="Int32" />
+          <Property Name="DOB" Type="DateTime" Precision="0" />
+          <Property Name="IsJava" Type="Boolean" />
+          <Property Name="IsDotnet" Type="Boolean" />
+          <Property Name="IsSAP" Type="Boolean" />
+          <NavigationProperty Name="Country1" Relationship="JobModel.FK__JobSeeker__Count__6E01572D" FromRole="JobSeeker" ToRole="Country" />
+        </EntityType>
+        <Association Name="FK__JobSeeker__Count__6E01572D">
+          <End Type="JobModel.Country" Role="Country" Multiplicity="0..1" />
+          <End Type="JobModel.JobSeeker" Role="JobSeeker" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Country">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="JobSeeker">
+              <PropertyRef Name="Country" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="JobModelStoreContainer" CdmEntityContainer="JobDBContext">
+          <EntitySetMapping Name="Countries">
+            <EntityTypeMapping TypeName="JobModel.Country">
+              <MappingFragment StoreEntitySet="Countries">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="JobSeekers">
+            <EntityTypeMapping TypeName="JobModel.JobSeeker">
+              <MappingFragment StoreEntitySet="JobSeeker">
+                <ScalarProperty Name="IsSAP" ColumnName="IsSAP" />
+                <ScalarProperty Name="IsDotnet" ColumnName="IsDotnet" />
+                <ScalarProperty Name="IsJava" ColumnName="IsJava" />
+                <ScalarProperty Name="DOB" ColumnName="DOB" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="Skills" ColumnName="Skills" />
+                <ScalarProperty Name="resume" ColumnName="resume" />
+                <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="GENDER" ColumnName="GENDER" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
