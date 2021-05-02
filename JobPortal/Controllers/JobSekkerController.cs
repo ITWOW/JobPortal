@@ -181,12 +181,11 @@ namespace JobPortal.Controllers
             jobSeeker.IsJava = model.IsJava;
             jobSeeker.IsSAP = model.IsSAP;
             jobSeeker.Skills = model.Skills;
-           
+           /* bool result;
+            bool.TryParse(, out result);*/
         }
 
 
-        /* bool result;
-            bool.TryParse(, out result);*/
         #region Other Ways to bind DDL
         /* //to bind countries from code behind DB
         List<SelectListItem> cList = new List<SelectListItem>()
