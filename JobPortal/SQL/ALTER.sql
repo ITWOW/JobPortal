@@ -1,7 +1,7 @@
 USE [MyDB]
 GO
 
-/****** Object:  Table [dbo].[Countries]    Script Date: 5/3/2021 4:05:30 PM ******/
+/****** Object:  Table [dbo].[Countries]    Script Date: 5/3/2021 4:05:30 PM Updated******/
 SET ANSI_NULLS ON
 GO
 
